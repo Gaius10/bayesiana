@@ -1,0 +1,7 @@
+https://cran.r-project.org/web/views/Bayesian.html
+
+https://www.r-bloggers.com/r-and-bayesian-statistics/
+
+http://www.r-tutor.com/bayesian-statistics/openbugs
+
+https://www.r-bloggers.com/2026/09/august-2026-top-40-new-cran-packages/
