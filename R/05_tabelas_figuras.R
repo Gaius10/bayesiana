@@ -8,7 +8,7 @@ tabular <- function(df, arq, dig = 4, fmt = "f") {
   f <- function(v) {
     if (!is.numeric(v)) return(v)
     s <- if (all(v == round(v))) as.character(v) else formatC(v, digits = dig, format = fmt, flag = if (fmt == "fg") "#" else "")
-    sub("^-", "$-$", gsub(".", ",", trimws(s), fixed = TRUE))
+    sub("^-", "$-$", gsub(".", ",", sub("\\.$", "", trimws(s)), fixed = TRUE))
   }
   writeLines(paste(do.call(paste, c(lapply(df, f), sep = " & ")), "\\\\"), file.path("relatorio/tabelas", arq))
 }

@@ -170,7 +170,7 @@ Nenhuma das duas tem forma conhecida, por isso usamos MCMC.
 \end{itemize}
 Portanto, \textbf{$\pi_2(\beta\mid\mathbf x)$ é própria se, e somente se, $\sum_ix_i\ge1$}. A probabilidade de violar a condição é $p(0;\beta)^n$, que vale $\approx10^{-26}$ para $\beta=2$ e $n=25$; nos dados reais ela vale. A posteriori $\pi_1$ é sempre própria, porque a priori é própria.
 
-\paragraph{MCMC no JAGS (ones trick).} Usamos o JAGS 	te{jags} via 	exttt{rjags}. A DMEx não está disponível no JAGS. Como $0<p(x_i;\beta)\le1$, declaramos dados artificiais $o_i=1$ com $o_i\sim\text{Bernoulli}(p(x_i;\beta))$. A contribuição de cada $o_i$ à verossimilhança é exatamente $p(x_i;\beta)$, o que dispensa a constante usual do ones trick. Para a Priori 2 usamos $\eta\sim U(-10,10)$ e $\beta=e^\eta$, uma truncagem de $1/\beta$ em $[e^{-10},e^{10}]$ sem efeito prático. Em todos os ajustes:
+\paragraph{MCMC no JAGS (ones trick).} Usamos o JAGS \cite{jags} via \texttt{rjags}. A DMEx não está disponível no JAGS. Como $0<p(x_i;\beta)\le1$, declaramos dados artificiais $o_i=1$ com $o_i\sim\text{Bernoulli}(p(x_i;\beta))$. A contribuição de cada $o_i$ à verossimilhança é exatamente $p(x_i;\beta)$, o que dispensa a constante usual do ones trick. Para a Priori 2 usamos $\eta\sim U(-10,10)$ e $\beta=e^\eta$, uma truncagem de $1/\beta$ em $[e^{-10},e^{10}]$ sem efeito prático. Em todos os ajustes:
 \begin{itemize}
 \item rodamos 3 cadeias com valores iniciais $\tilde\beta\times\{0{,}5;\,1;\,2\}$, em que $\tilde\beta=(\bar x+0{,}5)/2$ é o estimador de momentos (porque $\E(X)\approx2\beta-\tfrac12$);
 \item as sementes são fixas;
@@ -249,9 +249,7 @@ $\beta$ & $n$ & $\hat R$ médio & $\hat R$ máx. & Prop. $\hat R<1{,}01$ & ESS m
 
 \paragraph{Discussão.} No caso clássico (Tabela~\ref{tab:simcl}), o EMV é praticamente não viesado em todos os cenários ($|\text{viés}|\le0{,}03$). O EQM decai como $1/n$: $n\cdot\text{EQM}$ fica perto de $2$, $8$ e $12{,}5$ para $\beta=2$, $4$ e $5$, ou seja, perto de $\beta^2/2$. Essa é a variância assintótica do EMV da escala de uma Gama de forma 2 contínua ($\Var\approx\beta^2/(2n)$), o que mostra que a discretização perde pouca informação sobre $\beta$. A cobertura do IC de Wald em $\log\beta$ fica entre 93,6\% e 96,3\%, próxima do nível nominal mesmo com $n=25$.
 
-\marcador{Discussão dos resultados bayesianos da simulação (Tabelas~
-ef{tab:simba} e 
-ef{tab:simconv}): viés, EQM e cobertura da média a posteriori contra o EMV e convergência das 15 mil réplicas.}
+\marcador{Discussão dos resultados bayesianos da simulação (Tabelas~\ref{tab:simba} e \ref{tab:simconv}): viés, EQM e cobertura da média a posteriori contra o EMV e convergência das 15 mil réplicas.}
 
 % =====================================================================
 \section{Aplicação a dados reais}
