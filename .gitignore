@@ -7,3 +7,4 @@ relatorio/*.snm
 relatorio/*.vrb
 resultados/sim_bayes_stdout.txt
 resultados/sim_bayes_stderr.txt
+resultados/piloto/*.rds
