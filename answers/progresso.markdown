@@ -20,7 +20,14 @@ Atualizado em 2026-11-27.
 ## Etapas
 
 - [x] 0. Skill `.claude/skills/r-enxuto/SKILL.md` criada.
-- [ ] 1. Ambiente: **BLOQUEADO**. Há R 4.6.0 em `C:\Program Files\R\R-4.6.0` (fora do PATH). Faltam JAGS, rjags, R2jags, coda e LaTeX (pdflatex + beamer).
+- [x] 1. Ambiente OK.
+  - **R:** 4.6.0, em `C:\Program Files\R\R-4.6.0\bin\Rscript.exe` (fora do PATH, usar o caminho completo).
+  - **JAGS:** o rjags 5-5 exige a JAGS 5.
+    - O instalador pede administrador. Foi extraído com 7-Zip em `%LOCALAPPDATA%\Programs\JAGS\JAGS-5.0.2`.
+    - `JAGS_HOME` foi gravado em `C:\Users\paulo\.Renviron`.
+    - A JAGS 4.3.2, instalada em Program Files, não é usada.
+  - **Pacotes:** rjags 5-5, R2jags 0.8-9 e coda 0.19-4.1.
+  - **LaTeX:** MiKTeX 25.12, por usuário, em `%LOCALAPPDATA%\Programs\MiKTeX\miktex\bin\x64`, com AutoInstall ligado.
 - [ ] 2. R/modelo.R
 - [ ] 3. answers/derivacoes.markdown
 - [ ] 4. R/01_amostras.R e R/02_sim_classica.R
