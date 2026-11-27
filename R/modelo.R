@@ -57,23 +57,28 @@ modelo_jeffreys <- paste('model {', verossim_jags, '
   beta <- exp(eta)
 }')
 
-# Ajuste MCMC com 3 cadeias; iniciais espalhadas em torno de (media + 0.5)/2
-ajusta_jags <- function(x, modelo, semente, n_burn, n_iter, thin, n_adapt = 500) {
-  jef <- grepl("dunif", modelo)
+# Iniciais da DMEx para as 3 cadeias: espalhadas em torno de (media + 0.5)/2
+ini_dmex <- function(x, modelo) {
   b0 <- (mean(x) + 0.5)/2*c(0.5, 1, 2)
-  ini <- lapply(1:3, function(k) setNames(list(if (jef) log(b0[k]) else b0[k], "base::Mersenne-Twister", semente + k),
-                                          c(if (jef) "eta" else "beta", ".RNG.name", ".RNG.seed")))
-  jm <- jags.model(textConnection(modelo), list(N = length(x), x = x, ones = rep(1, length(x))),
-                   ini, n.chains = 3, n.adapt = n_adapt, quiet = TRUE)
+  lapply(b0, function(b) if (grepl("dunif", modelo)) list(eta = log(b)) else list(beta = b))
+}
+
+# Ajuste MCMC com 3 cadeias e sementes fixas (o ones so entra se o modelo usar)
+ajusta_jags <- function(x, modelo, semente, n_burn, n_iter, thin, ini = ini_dmex(x, modelo),
+                        vars = "beta", n_adapt = 500) {
+  ini <- lapply(1:3, function(k) c(ini[[k]], .RNG.name = "base::Mersenne-Twister", .RNG.seed = semente + k))
+  dados <- list(N = length(x), x = x)
+  if (grepl("ones", modelo)) dados$ones <- rep(1, length(x))
+  jm <- jags.model(textConnection(modelo), dados, ini, n.chains = 3, n.adapt = n_adapt, quiet = TRUE)
   update(jm, n_burn, progress.bar = "none")
-  coda.samples(jm, "beta", n_iter, thin = thin, progress.bar = "none")
+  coda.samples(jm, vars, n_iter, thin = thin, progress.bar = "none")
 }
 
 # Resumo a posteriori de uma mcmc.list de beta
 resumo_post <- function(cad) {
   b <- unlist(cad)
   c(media = mean(b), mediana = median(b), dp = sd(b), quantile(b, c(0.025, 0.975)),
-    rhat = gelman.diag(cad, autoburnin = FALSE)$psrf[1, 1], ess = effectiveSize(cad)[[1]])
+    rhat = gelman.diag(cad, autoburnin = FALSE)$psrf[[1]], ess = effectiveSize(cad)[[1]])
 }
 
 # Criterios bayesianos a partir da matriz ll (amostras x observacoes)

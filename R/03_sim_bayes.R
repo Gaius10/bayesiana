@@ -10,9 +10,9 @@ dir.create(pasta, recursive = TRUE, showWarnings = FALSE)
 log_txt <- if (S < sim$S) file.path(pasta, "log.txt") else "resultados/log_sim_bayes.txt"
 registra <- function(...) cat(format(Sys.time(), "%H:%M:%S"), ..., "\n", file = log_txt, append = TRUE)
 
-n_burn <- 1500; n_iter <- 3500; thin <- 1   # ajustado pelo piloto (S = 10)
+n_burn <- 1000; n_iter <- 2500; thin <- 1   # ajustado pelo piloto (S = 10)
 
-cl <- makeCluster(detectCores() - 1)
+cl <- makeCluster(min(detectCores() - 1, 6))   # limitado pela memoria livre (~0.8 GB)
 invisible(clusterEvalQ(cl, source("R/modelo.R")))
 clusterExport(cl, c("n_burn", "n_iter", "thin"))
 registra("inicio: S =", S, "| burn =", n_burn, "| iter =", n_iter, "| thin =", thin)
