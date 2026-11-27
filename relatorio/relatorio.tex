@@ -249,7 +249,20 @@ $\beta$ & $n$ & $\hat R$ médio & $\hat R$ máx. & Prop. $\hat R<1{,}01$ & ESS m
 
 \paragraph{Discussão.} No caso clássico (Tabela~\ref{tab:simcl}), o EMV é praticamente não viesado em todos os cenários ($|\text{viés}|\le0{,}03$). O EQM decai como $1/n$: $n\cdot\text{EQM}$ fica perto de $2$, $8$ e $12{,}5$ para $\beta=2$, $4$ e $5$, ou seja, perto de $\beta^2/2$. Essa é a variância assintótica do EMV da escala de uma Gama de forma 2 contínua ($\Var\approx\beta^2/(2n)$), o que mostra que a discretização perde pouca informação sobre $\beta$. A cobertura do IC de Wald em $\log\beta$ fica entre 93,6\% e 96,3\%, próxima do nível nominal mesmo com $n=25$.
 
-\marcador{Discussão dos resultados bayesianos da simulação (Tabelas~\ref{tab:simba} e \ref{tab:simconv}): viés, EQM e cobertura da média a posteriori contra o EMV e convergência das 15 mil réplicas.}
+No caso bayesiano (Tabela~\ref{tab:simba} e Figura~\ref{fig:simcomp}), a média a posteriori tem um \textbf{viés positivo} em todos os cenários. Ele é pequeno e decai com $n$:
+\begin{itemize}
+\item com $n=25$, vale $+0{,}026$, $+0{,}098$ e $+0{,}078$ para $\beta=2$, $4$ e $5$;
+\item com $n=400$, fica abaixo de $0{,}02$.
+\end{itemize}
+A causa é a assimetria da posteriori de um parâmetro de escala, não a priori: no intervalo $\beta\le5$, a densidade $\beta^{-0{,}9}e^{-0{,}01\beta}$ é praticamente $1/\beta$. Pela aproximação contínua, sob $1/\beta$ a posteriori de $\beta$ dado $\sum y_i$ é Gama inversa$(2n,\sum y_i)$. A média dela, $\sum y_i/(2n-1)$, supera a moda e o EMV, $\sum y_i/(2n)$, por um fator $2n/(2n-1)$. Isso dá um viés da ordem de $\beta/(2n)$, ou seja, $0{,}04$, $0{,}08$ e $0{,}10$ com $n=25$, compatível com o observado.
+
+Mesmo assim, o EQM da média a posteriori é só 5--7\% maior que o do EMV com $n=25$ e fica igual (diferença $<1\%$) a partir de $n=200$. O intervalo de credibilidade é cerca de 2,5\% mais longo com $n=25$ e praticamente idêntico ao IC de Wald para $n\ge100$. A cobertura fica entre 93,8\% e 96,1\%.
+
+Com $S=1000$, o erro de Monte Carlo da cobertura é $\sqrt{0{,}95\cdot0{,}05/1000}\approx0{,}7$ pontos percentuais. Assim, todas as coberturas, clássicas e bayesianas, são compatíveis com o nível nominal de 95\%.
+
+Quanto à convergência (Tabela~\ref{tab:simconv} e Figura~\ref{fig:simconv}), \textbf{todas} as 15\,000 réplicas tiveram $\hat R<1{,}01$: o máximo foi 1,009, e o $\hat R$ médio ficou em torno de 1,0006. O ESS médio ficou entre 4350 e 4900 das 7500 amostras, com mínimo de 3212. Os traços mostram as 3 cadeias bem misturadas desde o fim do aquecimento, e a autocorrelação é desprezível após o lag 2.
+
+Em resumo, com estas prioris e tamanhos amostrais, os dois paradigmas têm desempenho frequentista praticamente equivalente. O EMV leva uma pequena vantagem em viés quando $n$ é pequeno.
 
 % =====================================================================
 \section{Aplicação a dados reais}
@@ -343,7 +356,12 @@ O artigo original concluiu que a DMEx era a melhor porque a comparou com outro c
 \begin{itemize}
 \item \textbf{Modelo.} Deduzimos fmp, fda, taxa de falha, momentos, log-verossimilhança e escore analítico da DMEx, e verificamos tudo numericamente.
 \item \textbf{Posteriori.} Mostramos que a posteriori sob $\pi(\beta)\propto1/\beta$, priori motivada pelo resultado de \cite{lindley1958}, é própria se, e somente se, a amostra tem alguma observação positiva.
-\item \textbf{Simulação.} O EMV é praticamente não viesado, tem EQM próximo do limite assintótico $\beta^2/(2n)$ e cobertura próxima de 95\%.
+\item \textbf{Simulação.}
+  \begin{itemize}
+  \item O EMV é praticamente não viesado, tem EQM próximo do limite assintótico $\beta^2/(2n)$ e cobertura próxima de 95\%.
+  \item A média a posteriori tem um viés positivo da ordem de $\beta/(2n)$, que vem da assimetria da posteriori, e EQM até 7\% maior com $n=25$. As duas abordagens se equivalem a partir de $n\approx100$.
+  \item O MCMC convergiu em todas as 15\,000 réplicas ($\hat R<1{,}01$ e ESS $\ge3200$).
+  \end{itemize}
 \item \textbf{Aplicação.} As inferências clássica e bayesiana concordam quando a priori é compatível com a escala dos dados. A priori Gama ``vaga'' mostrou-se informativa para $\beta$ na casa das centenas, o que recomenda a priori $1/\beta$ (invariante por escala) como padrão. Os critérios clássicos (AIC/BIC) e bayesianos (DIC, WAIC, LPML) concordam que a DMEx, por ter CV fixo, é superada pela geométrica, pela binomial negativa e pela Weibull discreta nos dados de COVID-19. Isso relativiza a conclusão do artigo original.
 \end{itemize}
 

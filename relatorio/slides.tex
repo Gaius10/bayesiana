@@ -1,6 +1,7 @@
 \documentclass[10pt,aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[brazil]{babel}
 \usepackage{amsmath,amssymb,booktabs}
 \usetheme{Madrid}
@@ -204,7 +205,12 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 \linhas{tabelas/sim_bayes.tex}
 \bottomrule\end{tabular}
 \column{0.45\textwidth}
-\input{tabelas/slide_bayes_texto.tex}
+\begin{itemize}\small
+\item Viés \textbf{positivo}: de $+0{,}03$ a $+0{,}10$ com $n=25$, caindo com $n$
+\item Causa: a posteriori de uma escala é assimétrica (média $>$ moda $\approx$ EMV), o que dá viés $\approx\beta/(2n)$
+\item EQM até 7\% maior com $n=25$; igual ao do EMV a partir de $n=200$
+\item PC entre 93,8\% e 96,1\% (erro de Monte Carlo $\approx0{,}7$ p.p.)
+\end{itemize}
 \end{columns}}{\marcador{Tabela da simulação bayesiana.}}
 \end{frame}
 
@@ -287,7 +293,7 @@ Região & Modelo & AIC & BIC & DIC & WAIC & LPML\\\midrule
 \por{Francisco}
 \begin{itemize}
 \item DMEx: propriedades, escore analítico e posteriori própria com $1/\beta$ $\iff\sum x_i\ge1$.
-\item Simulação: EMV quase não viesado, com EQM $\approx\beta^2/(2n)$ e PC $\approx95\%$.
+\item Simulação: EMV e Bayes equivalentes a partir de $n\approx100$ (EQM $\approx\beta^2/(2n)$, PC $\approx95\%$). Bayes tem viés $\approx\beta/(2n)$ com $n$ pequeno. $\hat R<1{,}01$ em 100\% das réplicas.
 \item Aplicação: clássico e bayesiano concordam. A priori $1/\beta$ é mais segura que a Gama ``vaga''.
 \item A DMEx não é o melhor modelo para os dados de COVID-19, ao contrário do que conclui o artigo original.
 \end{itemize}

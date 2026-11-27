@@ -19,6 +19,7 @@ tabular(cl[, c("beta", "n", "media", "vies", "eqm", "cobertura", "comprimento")]
 tem_bayes <- file.exists("resultados/sim_bayes.csv")
 if (tem_bayes) {
   ba <- read.csv("resultados/sim_bayes.csv")
+  ba[c("ess_medio", "ess_min")] <- round(ba[c("ess_medio", "ess_min")])
   tabular(ba[, c("beta", "n", "media", "vies", "eqm", "cobertura", "comprimento")], "sim_bayes.tex")
   tabular(ba[, c("beta", "n", "rhat_medio", "rhat_max", "prop_rhat_101", "ess_medio", "ess_min")], "sim_bayes_conv.tex", 3)
   tabular(ba[, c("beta", "n", "rhat_max", "prop_rhat_101", "ess_min")], "slide_conv.tex", 3)
