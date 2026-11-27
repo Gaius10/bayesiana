@@ -21,6 +21,7 @@ if (tem_bayes) {
   ba <- read.csv("resultados/sim_bayes.csv")
   tabular(ba[, c("beta", "n", "media", "vies", "eqm", "cobertura", "comprimento")], "sim_bayes.tex")
   tabular(ba[, c("beta", "n", "rhat_medio", "rhat_max", "prop_rhat_101", "ess_medio", "ess_min")], "sim_bayes_conv.tex", 3)
+  tabular(ba[, c("beta", "n", "rhat_max", "prop_rhat_101", "ess_min")], "slide_conv.tex", 3)
 }
 
 # Aplicacao
@@ -48,7 +49,8 @@ par(mfrow = c(3, 3), mar = c(4, 4, 2.5, 1))
 for (med in c("vies", "eqm", "cobertura")) for (b in unique(cl$beta)) {
   y <- cbind(cl[cl$beta == b, med], if (tem_bayes) ba[ba$beta == b, med])
   matplot(cl$n[cl$beta == b], y, type = "b", pch = 16:17, lty = 1, col = c(1, 4), log = "x", xlab = "n", ylab = med,
-          main = bquote(.(med) ~ "-" ~ beta == .(b)))
+          main = paste0(med, " (beta = ", b, ")"), xaxt = "n")
+  axis(1, at = cl$n[cl$beta == b])
   abline(h = c(vies = 0, eqm = 0, cobertura = 0.95)[med], lty = 3, col = 2)
   if (b == 2 && med == "vies") legend("topright", c("EMV", "Bayes (Gama)"), col = c(1, 4), pch = 16:17, bty = "n")
 }
@@ -60,7 +62,7 @@ if (tem_bayes) {
   par(mfrow = c(3, 4), mar = c(4, 4, 2.5, 1))
   for (b in c(2, 4, 5)) for (n in c(25, 400)) {
     cad <- readRDS(sprintf("resultados/bayes/cadeias_b%d_n%d.rds", b, n))
-    traceplot(cad, main = bquote(beta == .(b) ~ ", n =" ~ .(n)), ylab = expression(beta))
+    traceplot(cad, main = paste0("beta = ", b, ", n = ", n), ylab = "beta")
     abline(h = b, col = 2, lty = 2)
     acf(cad[[1]][, 1], main = "ACF (cadeia 1)")
   }
