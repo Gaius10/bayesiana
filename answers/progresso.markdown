@@ -1,6 +1,6 @@
 # Progresso do trabalho (SME0809)
 
-Atualizado em 2026-11-27, 16h. **Todas as etapas foram concluídas.** Falta só o que está em [A CONFIRMAR], no fim.
+Atualizado em 2026-11-28. Todas as etapas foram concluídas e não há pendências.
 
 ## Referência do modelo (D6)
 
@@ -54,19 +54,15 @@ Atualizado em 2026-11-27, 16h. **Todas as etapas foram concluídas.** Falta só 
   - **Europa:** β̂ = 393,2. A Gama(0,1; 0,01) puxa a posteriori para 376,8, contra 399,6 com 1/β. A priori "vaga" não é vaga nessa escala.
   - **Comparação de modelos:** a DMEx perde para a geométrica, a binomial negativa e a Weibull discreta em AIC, BIC, DIC, WAIC e LPML, porque seu CV é fixo em ≈ 0,71, contra 0,89 e 1,18 nos dados. O artigo usou outros concorrentes.
 
-## Pontos a confirmar
+## Pendências (resolvidas em 28/11)
 
-- [A CONFIRMAR] O "3" fora de ordem nos dados da China, logo depois do 13, também aparece no artigo. Mantido como está, mas há forte evidência de que seja 13:
-  - com 13, o EMV dá β̂ = 25,122 e logL = −330,515, exatamente como no artigo;
-  - a Poisson do artigo também implica soma 10 unidades maior.
-- [A CONFIRMAR] Os números do artigo para a Europa são inconsistentes:
-  - o artigo dá β̂ = 409,36 e logL = −257,12; nós obtemos 393,17 e −255,76;
-  - a soma implícita na Poisson do artigo é 24357, e a nossa é 24361;
-  - os AIC da Tabela 6 do artigo não conferem.
-- [A CONFIRMAR] A referência de Dara e Ahmad (2012), livro da Lap Lambert: conferir os dados exatos.
-- [A CONFIRMAR] O push para `origin` (Gaius10/bayesiana) é recusado com 403: a conta PauloVincenzi não tem permissão de escrita. O dono do repositório precisa adicioná-la como colaboradora, ou o push precisa ser feito com outra credencial. Os commits estão só locais.
-- Decisões tomadas sem consulta, que o grupo pode revisar:
-  - os 4 concorrentes vieram dos scripts do professor, não dos 7 do artigo;
-  - na simulação, a média a posteriori é o estimador pontual;
-  - na aplicação, a FDA preditiva usa só a Priori 1;
-  - os slides têm 19 quadros (título e agradecimento incluídos).
+- **O "3" depois do 13 (China):** os dados ficam como publicados. O relatório e o README registram que, com 13, o EMV bate com o do artigo (β̂ = 25,122 e logL = −330,515).
+- **Europa:** a inconsistência do artigo (409,36 contra os nossos 393,17, e AIC que não conferem) está documentada no relatório e no README.
+- **Dara e Ahmad (2012):** o livro existe (Sajeela Tazeen Dara, *Recent Advances in Moment Distribution and their Hazard Rates*, Lap Lambert). A referência foi mantida.
+- **Push:** liberado e feito para `origin/main`.
+- **Decisões mantidas como estavam:**
+  - os 4 concorrentes vêm dos scripts do professor;
+  - a média a posteriori é o estimador na simulação;
+  - a FDA preditiva usa a Priori 1;
+  - os slides têm 19 quadros.
+- **Marcadores de pendente:** removidos do relatório e dos slides. O README foi criado.
