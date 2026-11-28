@@ -17,7 +17,6 @@
 \lstset{language=R, basicstyle=\ttfamily\scriptsize, breaklines=true, frame=single,
   commentstyle=\color{gray}, keywordstyle=\color{blue!60!black}, stringstyle=\color{green!40!black},
   columns=fullflexible, showstringspaces=false}
-\newcommand{\marcador}[1]{\begin{center}\fcolorbox{red}{red!5}{\parbox{0.9\linewidth}{\textbf{[PENDENTE]} #1}}\end{center}}
 \makeatletter\newcommand{\linhas}[1]{\@@input #1 }\makeatother
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\Var}{\mathrm{Var}}
@@ -219,7 +218,6 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 \bottomrule\end{tabular}
 \end{table}
 
-\IfFileExists{tabelas/sim_bayes.tex}{%
 \begin{table}[H]\centering\small
 \caption{Simulação, abordagem bayesiana (Priori 1, média a posteriori e intervalo de credibilidade de 95\%), $S=1000$.}\label{tab:simba}
 \begin{tabular}{cc rrrrr}\toprule
@@ -234,18 +232,17 @@ $\beta$ & $n$ & $\hat R$ médio & $\hat R$ máx. & Prop. $\hat R<1{,}01$ & ESS m
 \linhas{tabelas/sim_bayes_conv.tex}
 \bottomrule\end{tabular}
 \end{table}
-}{\marcador{Tabelas da simulação bayesiana (média, viés, EQM, PC, comprimento) e de convergência ($\hat R$, ESS). São geradas por \texttt{R/05\_tabelas\_figuras.R} quando \texttt{resultados/sim\_bayes.csv} existir.}}
+
 
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{sim_comparacao.pdf}
 \caption{Viés, EQM e cobertura em função de $n$ (escala log). Em preto, o EMV; em azul, a média a posteriori com a Priori 1. A linha vermelha marca o valor ideal.}\label{fig:simcomp}
 \end{figure}
 
-\IfFileExists{../figuras/sim_convergencia.pdf}{%
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{sim_convergencia.pdf}
 \caption{Traço das 3 cadeias e ACF de uma réplica com $n=25$ e outra com $n=400$ para cada $\beta$. A linha tracejada marca o valor verdadeiro.}\label{fig:simconv}
-\end{figure}}{\marcador{Figura de convergência (traço e ACF) das réplicas guardadas com $n=25$ e $n=400$.}}
+\end{figure}
 
 \paragraph{Discussão.} No caso clássico (Tabela~\ref{tab:simcl}), o EMV é praticamente não viesado em todos os cenários ($|\text{viés}|\le0{,}03$). O EQM decai como $1/n$: $n\cdot\text{EQM}$ fica perto de $2$, $8$ e $12{,}5$ para $\beta=2$, $4$ e $5$, ou seja, perto de $\beta^2/2$. Essa é a variância assintótica do EMV da escala de uma Gama de forma 2 contínua ($\Var\approx\beta^2/(2n)$), o que mostra que a discretização perde pouca informação sobre $\beta$. A cobertura do IC de Wald em $\log\beta$ fica entre 93,6\% e 96,3\%, próxima do nível nominal mesmo com $n=25$.
 

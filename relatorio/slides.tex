@@ -11,7 +11,6 @@
 \makeatletter\newcommand{\linhas}[1]{\@@input #1 }\makeatother
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\por}[1]{\framesubtitle{\textcolor{gray}{Apresenta: #1}}}
-\newcommand{\marcador}[1]{\begin{center}\fcolorbox{red}{red!5}{\parbox{0.8\linewidth}{\textbf{[PENDENTE]} #1}}\end{center}}
 
 \title[DMEx: clássico e bayesiano]{Inferência clássica e bayesiana para a\\distribuição moment exponential discreta}
 \subtitle{com aplicação a mortes diárias por COVID-19}
@@ -196,7 +195,6 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 \section{Simulação bayesiana}
 \begin{frame}{Resultados: média a posteriori (Priori 1)}
 \por{João Vitor}
-\IfFileExists{tabelas/sim_bayes.tex}{%
 \begin{columns}
 \column{0.55\textwidth}
 \scriptsize
@@ -211,7 +209,7 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 \item EQM até 7\% maior com $n=25$; igual ao do EMV a partir de $n=200$
 \item PC entre 93,8\% e 96,1\% (erro de Monte Carlo $\approx0{,}7$ p.p.)
 \end{itemize}
-\end{columns}}{\marcador{Tabela da simulação bayesiana.}}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Comparação: EMV $\times$ Bayes}
@@ -222,7 +220,6 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 
 \begin{frame}{Convergência nas 15 mil réplicas}
 \por{João Vitor}
-\IfFileExists{../figuras/sim_convergencia.pdf}{%
 \begin{columns}
 \column{0.6\textwidth}
 \includegraphics[width=\linewidth]{sim_convergencia.pdf}
@@ -232,7 +229,7 @@ $\beta$ & $n$ & Média & Viés & EQM & PC & Compr.\\\midrule
 $\beta$ & $n$ & $\hat R$ máx. & Prop. $\hat R<1{,}01$ & ESS mín.\\\midrule
 \linhas{tabelas/slide_conv.tex}
 \bottomrule\end{tabular}
-\end{columns}}{\marcador{Traço e ACF das réplicas guardadas e tabela de $\hat R$/ESS.}}
+\end{columns}
 \end{frame}
 
 % ---------------- Frente 7: Aplicação (Antonio) ----------------
